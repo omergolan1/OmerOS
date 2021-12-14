@@ -16,9 +16,15 @@ i386-elf-gcc -ffreestanding -m32 -g -c "kernel/irq.cpp" -o "bin/irq.o" -I Kernel
 #mem
 i386-elf-gcc -ffreestanding -m32 -g -c "Memory/mem.cpp" -o "bin/mem.o"
 
+#dirvers
+
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/port_io.cpp" -o "bin/port_io.o"
+
+
+
 #linker
-i386-elf-ld -o "bin/full_kernel.bin" -Ttext 0x1000   "bin/mem.o" "bin/idt.o" "bin/irq.o" "bin/isr.o" "bin/kernel.o" "bin/kernel_entry.o"  --oformat binary
+i386-elf-ld -o "bin/full_kernel.bin" -Ttext 0x1000   "bin/mem.o" "bin/idt.o" "bin/irq.o" "bin/isr.o" "bin/kernel.o" "WeeBins/Drivers/port_io.o" "bin/kernel_entry.o"  --oformat binary
 
 cat "bin/boot.bin" "bin/full_kernel.bin" "bin/zeroes.bin"  > "bin/OS.bin"
 
-#qemu-system-x86_64 -drive format=raw,file="bin/OS.bin",index=0,if=floppy,  -m 128M
+qemu-system-x86_64 -drive format=raw,file="bin/OS.bin",index=0,if=floppy,  -m 128M

@@ -3,10 +3,12 @@
 #include "../kernel/isr.h"
 #include "../kernel/irq.h"
 
+#define VIDEO_MEMORY		(char*)0xB8000
+
 extern "C" void main(){
     
 
-	idt_install();
-    *(char*)0xb8000 = 'O';
+    idt_install();
+    *VIDEO_MEMORY = 'O';
     return;
 }
