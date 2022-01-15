@@ -16,4 +16,4 @@ i386-elf-ld -o "Binaries/full_kernel.bin" -Ttext 0x1000 "Binaries/kernel_entry.o
 
 cat "Binaries/boot.bin" "Binaries/full_kernel.bin" "Binaries/zeroes.bin"  > "Binaries/OS.bin"
 
-#qemu-system-x86_64 -drive format=raw,file=OS.bin,index=0,if=floppy,  -m 128M
+qemu-system-x86_64 -drive format=raw,file='Binaries/OS.bin',index=0,if=floppy,  -m 128M
