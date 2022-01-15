@@ -38,15 +38,7 @@ void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, uns
 	idt[num].always0 = 0;
 	idt[num].flags = flags;
 }
-void write_string( int colour, const char *string )
-{
-    volatile char *video = (volatile char*)0xB8000;
-    while( *string != 0 )
-    {
-        *video++ = *string++;
-        *video++ = colour;
-    }
-}
+
 
 void idt_install()
 {

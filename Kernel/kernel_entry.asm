@@ -10,10 +10,4 @@ call main		        ; calls kernel function main()
 
 jmp $
 
-%include "../intDef/interrupt.asm"
-
-
-section .rodata		    ; read only data
-
-;%include "IncBins.asm"	; including binaries
-
+%include "../Kernel/interrupt.asm"
