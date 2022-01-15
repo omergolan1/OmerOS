@@ -1,24 +1,19 @@
 export PATH=$PATH:/usr/local/i386elfgcc/bin
 
-#boot
-nasm "boot/boot.asm" -f bin -o "bin/boot.bin" -i boot
-nasm "boot/zeroes.asm" -f bin -o "bin/zeroes.bin"
+nasm "Boot/boot.asm" -f bin -o "Binaries/boot.bin" -i Boot
+nasm "Kernel/kernel_entry.asm" -f elf -o "Binaries/kernel_entry.o" -i intDef
+i386-elf-gcc -ffreestanding -m32 -g -c "Kernel/kernel.cpp" -o "Binaries/kernel.o" 
+nasm "Boot/zeroes.asm" -f bin -o "Binaries/zeroes.bin"
+
+i386-elf-gcc -ffreestanding -m32 -g -c "intDef/idt.cpp" -o "Binaries/idt.o"
+i386-elf-gcc -ffreestanding -m32 -g -c "intDef/isr.cpp" -o "Binaries/isr.o" -I intDef
+i386-elf-gcc -ffreestanding -m32 -g -c "intDef/irq.cpp" -o "Binaries/irq.o" -I intDef
+
+i386-elf-gcc -ffreestanding -m32 -g -c "Memory/mem.cpp" -o "Binaries/mem.o"
 
 
-#kernel
+i386-elf-ld -o "Binaries/full_kernel.bin" -Ttext 0x1000 "Binaries/kernel_entry.o" "Binaries/kernel.o" "Binaries/idt.o" "Binaries/isr.o" "Binaries/irq.o" "Binaries/mem.o" --oformat binary
 
-i386-elf-gcc -ffreestanding -m32 -g -c "kernel/kernel.cpp" -o "bin/kernel.o" -I kernel
-nasm "kernel/kernel_entry.asm" -f elf -o "bin/kernel_entry.o" -i kernel
-i386-elf-gcc -ffreestanding -m32 -g -c "kernel/idt.cpp" -o "bin/idt.o"
-i386-elf-gcc -ffreestanding -m32 -g -c "kernel/isr.cpp" -o "bin/isr.o" -I Kernel
-i386-elf-gcc -ffreestanding -m32 -g -c "kernel/irq.cpp" -o "bin/irq.o" -I Kernel
+cat "Binaries/boot.bin" "Binaries/full_kernel.bin" "Binaries/zeroes.bin"  > "Binaries/OS.bin"
 
-#mem
-i386-elf-gcc -ffreestanding -m32 -g -c "Memory/mem.cpp" -o "bin/mem.o"
-
-#linker
-i386-elf-ld -o "bin/full_kernel.bin" -Ttext 0x1000   "bin/mem.o" "bin/idt.o" "bin/irq.o" "bin/isr.o" "bin/kernel.o" "bin/kernel_entry.o"  --oformat binary
-
-cat "bin/boot.bin" "bin/full_kernel.bin" "bin/zeroes.bin"  > "bin/OS.bin"
-
-#qemu-system-x86_64 -drive format=raw,file="bin/OS.bin",index=0,if=floppy,  -m 128M
+#qemu-system-x86_64 -drive format=raw,file=OS.bin,index=0,if=floppy,  -m 128M
