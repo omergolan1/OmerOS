@@ -3,6 +3,8 @@
 
 #include "../Memory/mem.h"
 
+
+
 struct idt_entry			// IDT structure
 {
 	unsigned short base_lo;
@@ -43,14 +45,11 @@ void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, uns
 void idt_install()
 {
 	
-
 	_idtp.limit = (sizeof (struct idt_entry) * 256) - 1;
 	_idtp.base = (unsigned int)&idt;
 
-	
-	memset(&idt, 0, sizeof(struct idt_entry) * 256);
 	/* Clear out the entire IDT, initalizing it to zeros */
-	//memset(&idt, 0, sizeof(struct idt_entry) * 256);
+	memset(&idt, 0, sizeof(struct idt_entry) * 256);
 
 	/* Add any new ISRs to the IDT here using idt_set_gate */
 

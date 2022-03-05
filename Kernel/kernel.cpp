@@ -15,6 +15,11 @@ void write_string( int colour, const char *string )
 }
 
 extern "C" void main(){
+
+	idt_install();
+    isrs_install();
+	irq_install();
+
 	*(char*)0xb8000='o';
 	*(char*)0xb8001=1;
 	write_string(2,"hello");
