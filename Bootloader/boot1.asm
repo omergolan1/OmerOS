@@ -39,7 +39,10 @@ mov cr0, eax
 jmp CODE_SEG:start_protected_mode
 
 jmp $
-                                    
+
+
+
+
 BOOT_DISK: db 0
 
 GDT_start:
