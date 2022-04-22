@@ -2,6 +2,8 @@
 #include "../intDef/isr.h"
 #include "../Memory/mem.h"
 #include "../intDef/irq.h"
+#include "../Drivers/VGA_Text.h"
+#include "../Shell/shell.h"
 
 void write_string( int colour, const char *string )
 {
@@ -20,9 +22,6 @@ extern "C" void main(){
     isrs_install();
 	irq_install();
 
-	*(char*)0xb8010='o';
-	*(char*)0xb8001=1;
-	write_string(2,"hello");
-
+    load_shell();
     return;
 }

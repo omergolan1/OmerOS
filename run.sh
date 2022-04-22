@@ -9,17 +9,27 @@ nasm "Kernel/kernel_entry.asm" -f elf -o "Binaries/kernel_entry.o" -i intDef
 i386-elf-gcc -ffreestanding -m32 -g -c "Kernel/kernel.cpp" -o "Binaries/kernel.o"
 nasm "Boot/zeroes.asm" -f bin -o "Binaries/zeroes.bin"
 
+echo SHELL:
+i386-elf-gcc -ffreestanding -m32 -g -c "Shell/shell.cpp" -o "Binaries/shell.o" -I Shell
+i386-elf-gcc -ffreestanding -m32 -g -c "Shell/shellFunctions.cpp" -o "Binaries/shellFunctions.o" -I Shell
 
-
+echo intDef
 i386-elf-gcc -ffreestanding -m32 -g -c "intDef/idt.cpp" -o "Binaries/idt.o"
 i386-elf-gcc -ffreestanding -m32 -g -c "intDef/isr.cpp" -o "Binaries/isr.o" -I intDef
 i386-elf-gcc -ffreestanding -m32 -g -c "intDef/irq.cpp" -o "Binaries/irq.o" -I intDef
+i386-elf-gcc -ffreestanding -m32 -g -c "intDef/timer.cpp" -o "Binariestimer.o" -I intDef
 
 i386-elf-gcc -ffreestanding -m32 -g -c "Memory/mem.cpp" -o "Binaries/mem.o"
 
+echo Drivers:
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/port_io.cpp" -o "Binaries/port_io.o" -I Drivers
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/VGA_Text.cpp" -o "Binaries/VGA_Text.o" -I Drivers
+#i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Keyboard.cpp" -o "Binaries/Keyboard.o" -I Drivers
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/string.cpp" -o "Binaries/string.o" -I Utils
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Conversions.cpp" -o "Binaries/Conversions.o" -I Drivers
+i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Floppy.cpp" -o "Binaries/Floppy.o" -I Drivers
 
-
-i386-elf-ld -o "Binaries/full_kernel.bin" -Ttext 0x1000 "Binaries/kernel_entry.o" "Binaries/kernel.o" "Binaries/idt.o" "Binaries/isr.o" "Binaries/irq.o" "Binaries/mem.o" --oformat binary
+i386-elf-ld -o "Binaries/full_kernel.bin" -Ttext 0x1000 "Binaries/kernel_entry.o" "Binaries/kernel.o" "Binariestimer.o" "Binaries/Floppy.o" "Binaries/shellFunctions.o" "Binaries/shell.o" "Binaries/string.o" "Binaries/port_io.o" "Binaries/Conversions.o" "Binaries/VGA_Text.o" "Binaries/idt.o" "Binaries/isr.o" "Binaries/irq.o" "Binaries/mem.o" --oformat binary
 
 cat "Binaries/boot.bin" "Binaries/full_kernel.bin" "Binaries/empty_end.bin"  > "Binaries/OS.bin"
 
