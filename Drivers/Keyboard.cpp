@@ -1,10 +1,10 @@
-#include <Typedefs.h>
-#include <Conversions.h>
-#include<VGA_Text.h>
-#include<port_io.h>
+#include "../Drivers/Typedefs.h"
+#include "../Drivers/Conversions.h"
+#include "../Drivers/VGA_Text.h"
+#include "../Drivers/port_io.h"
 #include "../intDef/irq.h"
-#include "../Misc/CmdMode.h"
-#include "../Misc/CodeMode.h"
+#include "../Drivers/CmdMode.h"
+#include "../Drivers/CodeMode.h"
 #include "../Shell/shell.h"
 /********************FUNCTIONS*********************
 * kb_install: installs keyboard IRQ handler       *
@@ -90,6 +90,7 @@ void keyboard_handler(struct regs *r)
     		case 0x3a: caps_lock = !caps_lock; break;
     		case 0x1c: 
     			switch(curMode){
+            
     				case 1: FindCmd(); break;
     				case 2: Interpret(); break;
     				case 0: kprintChar('\n', 0);

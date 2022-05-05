@@ -52,14 +52,13 @@ void load_shell(){
 	ColLine(24, BAR_COLOR);
 	ClrLine(24);
 	SetCursorPos(0,0);
-	kprint("MellOS shell - [");
+	kprint("Omer shell - [");
     kprint("task: ");
     kprint(currentTask);
     kprint(" | ");
     kprint("dir: -");
     kprint("]\n");
     kprint("Work in progress, ");
-    kprintCol("press F1 to use the old CMD mode.\n\n", ERROR_COLOR);
 	CommandCursor = CursorPos;
 	SetCursorPosRaw(1920);
 	return;
@@ -68,7 +67,7 @@ void load_shell(){
 
 void refreshShell(){
 	SetCursorPos(0,0);
-	kprint("MellOS shell - [");
+	kprint("Omer shell - [");
     kprint("task: ");
     kprint(currentTask);
     kprint(" | ");

@@ -1,4 +1,8 @@
-#include "../intDef/idt.h"
+#include "../Drivers/Typedefs.h"
+#include "../Drivers/port_io.h"
+#include "../Drivers/VGA_Text.h"
+#include "../Drivers/Conversions.h"
+#include <idt.h>
 
 extern "C" void irq0();
 extern "C" void irq1();
@@ -37,12 +41,24 @@ void irq_uninstall_handler(int irq)
 }
 
 
-
+void irq_remap(void)
+{
+	outb(0x20, 0x11);
+	outb(0xA0, 0x11);
+	outb(0x21, 0x20);
+	outb(0xA1, 0x28);
+	outb(0x21, 0x04);
+	outb(0xA1, 0x02);
+	outb(0x21, 0x01);
+	outb(0xA1, 0x01);
+	outb(0x21, 0x0);
+	outb(0xA1, 0x0);
+}
 
 
 void irq_install()
 {
-	
+	irq_remap();
 
 	idt_set_gate(32, (unsigned)irq0, 0x08, 0x8E);
 	idt_set_gate(33, (unsigned)irq1, 0x08, 0x8E);
@@ -77,7 +93,13 @@ extern "C" void _irq_handler(struct regs *r)
 	}
 
 
+	if (r->int_no >= 40)
+	{
+		outb(0xA0, 0x20);
+	}
 
+
+	outb(0x20, 0x20);
 }
 
 void irq_wait(int n){

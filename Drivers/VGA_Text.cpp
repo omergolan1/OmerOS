@@ -24,7 +24,7 @@
 
 //////////////////////////////////////////// WOW this code sucks, I'll need to rewrite it entirely with the new shell in mind.
 
-int curMode=1;
+extern int curMode;
 int curColor = DEFAULT_COLOR;
 uint16_t CursorPos = 0; 		// Holds the current position of the cursor
 

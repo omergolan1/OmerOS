@@ -9,7 +9,7 @@ extern const char* currentTask;
 
 static const int numberOfCMDs = 5;
 
-extern uint16_t CursorPos;
+extern int CursorPos;
 
 static const char *  const helpList[5] = {                  // find better (dynamic) way
     "  help: shows command list\n",

@@ -7,7 +7,7 @@
 * 							     *
 ***********************************************************/
 
-#include <string.h>
+#include "../Drivers/string.h"
 
 char toStringRes[128];
 
