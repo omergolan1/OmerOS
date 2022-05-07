@@ -5,35 +5,7 @@
 #include "shellFunctions.h"
 #include "../Memory/mem.h"
 #include "../Drivers/Conversions.h"
-/*
 
-///////////////////////////////////// To add: command buffer, scroll navigation
-
-
-FLOPPY:
-    floppy list     [detect drives]
-    
-
-FILE SYSTEM: [...]
-
-POWER MANAGEMENT: 
-    shutdown
-    reboot
-
-MEMORY:
-    usedmem
-    
-MISC:
-    echo #string
-    oldcmd
-    
-VARIABLES:
-    let #name = #value
-    
-
-
-(+ load old modes)
-*/
 
 int CommandCursor;
 extern int CursorPos;
@@ -77,6 +49,56 @@ void refreshShell(){
 	return;
 }
 
+void calc(char s[])
+{   bool beforeS=true;
+    bool afterSpace = false;
+    int multi=1;
+    int num1=0;
+    int num2=0;
+    int sing;
+    for (int i =0;i<strLen(s);i++)
+    {  
+
+        
+         if (afterSpace){
+            if (s[i]==0x70 || s[i]==0x6d ||s[i]==0x73||s[i]==0x64){
+            beforeS=false;
+            sing = s[i];
+            multi=1;
+            }
+            else if (beforeS)
+            {
+                num1=num1+((s[i]-0x30)*multi);
+                multi=multi*10;
+            }
+            else if (!beforeS)
+            {
+                num2=num2+((s[i]-0x30)*multi);
+                multi=multi*10;
+            }
+        }
+        if(s[i]==0x20)
+        {
+            afterSpace=true;
+        }
+    }
+    const char* resultp= "worng input";
+    if(sing==0x70){
+        resultp=toString(num1+num2,10);}
+    else if(sing==0x6d){
+        resultp=toString(num1*num2,10);}
+    else if(sing==0x73){
+        resultp=toString(num1-num2,10);}
+    else if(sing==0x64){
+        resultp=toString(num1/num2,10);}
+       
+   
+    kprint(resultp);
+    
+
+
+
+}
 
 char CommandBuffer[128];
 void findCommand(){
@@ -105,9 +127,8 @@ void parseCommand(){
          if(CheckCMD(helpCMD, "help")){;}
     else if (CheckCMD(kprint, "echo ")){currentTask = "echo";}
     else if (CheckCMD(printUsedMem, "usedmem")){;}
-    else if (CheckCMD(floppyCMD, "floppy ")){;}
-    else if (CheckCMD(floppyCMD, "floppy")){;}      // get rid of redundancy asap
     else if (CheckCMD(clearCMD, "clear")){;}
+    else if (CheckCMD(calcCMD, "calc")){calc(CommandBuffer);}
     else {kprint("\""); kprint(CommandBuffer); kprint("\" is not a command");}
     kprint("\n");
     CommandCursor = CursorPos;
@@ -115,3 +136,5 @@ void parseCommand(){
     //SetCursorPosRaw(1920);
     refreshShell();
 }
+
+

@@ -9,7 +9,6 @@ getMemoryMap:
     int 0x12
     jc ERROR
     mov bx, ax
-    call PrintDecimal
     mov bx, KB
     call PrintString
     mov bx, NL
@@ -41,7 +40,7 @@ getMemoryMap:
      add [Extended_Memory_Size], ax
 
     mov bx, [Extended_Memory_Size]
-    call PrintDecimal
+    
     mov bx, MB
     call PrintString
     mov bx, NL

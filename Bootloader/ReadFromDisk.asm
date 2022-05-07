@@ -22,7 +22,6 @@ readDisk:
 	jne diskError
 	
 	mov bx, ax
-	call PrintDecimal	; Print Number of sectors loaded
 
 	jmp AFTER_DISK_READ	; I have no idea why return is not working, I'll figure it out
 	ret
@@ -36,7 +35,6 @@ diskError:
 	call PrintString
 	pop ax
 	mov bh, ah
-	call PrintDecimal
 	jmp $
 
 sectorError:

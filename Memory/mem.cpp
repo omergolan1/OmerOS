@@ -1,13 +1,5 @@
-/*
- * How to use Dynamic Memory Allocation in Mellotron (an introduction to the Lazy Linear Allocation Method)
- * 
- * You should try to use DMA almost exclusively in block scopes; 
- * Use the memrec() function at the beginning of the block and the memunrec() function at the end: these will free all of the memory you allocated in the block.
- * 
- * Have a look at the other functions, they're pretty ez to understand. Yes, this method sucks. Can you do better? Bet you can.
- */
 
-
+//dynamic memory allocate
 
 #define FREE_MEM 0x10000;
 
@@ -31,7 +23,7 @@ void initializeMem(){
     freeMem = FREE_MEM;
 }
 
-/* allocate space linearly (Welcome to the worst allocation method ever), starting from address 0x10000 */
+/* allocate space linearly starting from address 0x10000 */
 void* kmalloc(int size){
     memset((void*)freeMem, 0, size); 
     void* address = (void*)freeMem;

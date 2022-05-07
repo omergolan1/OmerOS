@@ -3,7 +3,6 @@
 #include "../Drivers/VGA_Text.h"
 #include "../Drivers/port_io.h"
 #include "../intDef/irq.h"
-#include "../Drivers/CmdMode.h"
 #include "../Drivers/CodeMode.h"
 #include "../Shell/shell.h"
 /********************FUNCTIONS*********************
@@ -82,24 +81,17 @@ void keyboard_handler(struct regs *r)
     {
     	
     	switch(scancode){
-    		case 0x4b: MoveCursorLR(-1); break;
-    		case 0x4d: MoveCursorLR(1); break;
-    		case 0x48: MoveCursorUD(-1); break;
-    		case 0x50: MoveCursorUD(1); break;
     		case 0x2a: shift_pressed = true; break;
     		case 0x3a: caps_lock = !caps_lock; break;
     		case 0x1c: 
     			switch(curMode){
             
-    				case 1: FindCmd(); break;
     				case 2: Interpret(); break;
     				case 0: kprintChar('\n', 0);
                     case 10: parseCommand();
     			}
     			break;
-    		case 0x3b: SetCmdMode(); break;
             case 0x3f: load_shell(); break;
-    									//ITALIAN KEYBOARD, might not work on others:
     		case 0x56: kprintChar(shift_pressed ? '>' : '<', 0); break;	
     		default: kprintChar(kbdus[scancode], shift_pressed | caps_lock);
     	}

@@ -27,7 +27,6 @@ i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/VGA_Text.cpp" -o "Binaries/VGA_T
 i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Keyboard.cpp" -o "Binaries/Keyboard.o" -I Drivers
 i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/string.cpp" -o "Binaries/string.o" -I Utils
 i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Conversions.cpp" -o "Binaries/Conversions.o" -I Drivers
-i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/Floppy.cpp" -o "Binaries/Floppy.o" -I Drivers
 i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/CmdMode.cpp" -o "Binaries/CmdMode.o" -I Drivers
 i386-elf-gcc -ffreestanding -m32 -g -c "Drivers/CodeMode.cpp" -o "Binaries/CodeMode.o" -I Drivers
 

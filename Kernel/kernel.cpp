@@ -15,8 +15,6 @@
 #include "../intDef/irq.h"
 #include "../intDef/timer.h"
 #include "../Drivers/Keyboard.h"
-#include "../Drivers/Floppy.h"
-#include "../Drivers/CmdMode.h"
 #include "../Shell/shell.h"
 
 int curMode;					        // Modes:	1: CMD, 2: code, 0: dummy text, 10: shell
@@ -38,9 +36,7 @@ extern "C" void main(){
     initializeMem();
     
     load_shell();
-    //kprint(strDecapitate("print pal", strLen("print ")));
-    //kprint("one\ntwo two \nthree three three \nfour four four four");
-    //scrollPageUp();
+
     
 	return;
 }

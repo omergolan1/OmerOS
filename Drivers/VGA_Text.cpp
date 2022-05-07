@@ -19,10 +19,6 @@
 * other useful functions handling colour and different modes  *
 **************************************************************/
 
-//thanks, OSDEV wiki, for being a thing.
-
-
-//////////////////////////////////////////// WOW this code sucks, I'll need to rewrite it entirely with the new shell in mind.
 
 extern int curMode;
 int curColor = DEFAULT_COLOR;
@@ -49,33 +45,8 @@ void SetCursorPos(int x, int y){
 	return;
 }
 
-/*uint16_t GetCursorPos()		//Commented for no particular reason, uncomment if needed
-{
-	uint16_t pos = 0;
-	outb(0x3D4, 0x0F);
-	pos |= inb(0x3D5);
-	outb(0x3D4, 0x0E);
-	pos |= ((uint16_t)inb(0x3D5)) << 8;
-	return pos;
-}
 
-void disable_cursor()
-{
-	outb(0x3D4, 0x0A);
-	outb(0x3D5, 0x20);
-}
-
-void enable_cursor(uint8_t cursor_start, uint8_t cursor_end)
-{
-	outb(0x3D4, 0x0A);
-	outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
- 
-	outb(0x3D4, 0x0B);
-	outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
-}
-*/
-
-void ClearScreen(int col){	//col...or
+void ClearScreen(int col){	//col...or -1
 	if(col == -1) col = curColor;		//-1: maintain current colour
 	switch(curMode){
 	case 0:

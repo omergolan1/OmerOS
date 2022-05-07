@@ -1,8 +1,7 @@
 [org 0x7c00]
 
 
-KERNEL_LOCATION equ 0x1000	; Was 0x7e00 but I changed it because of buffer overflow problems
-				; Implementing SSP asap
+KERNEL_LOCATION equ 0x1000	;loc of the kernel
 				
 
 
@@ -37,8 +36,6 @@ mov ah, 0x0			; clear screen (set text mode)
 mov al, 0x3
 int 0x10
 
-;call GraphicsMode		; uhm, later on
-
 call switchToPM
 
 	jmp $
@@ -47,18 +44,10 @@ ERROR:
     mov bx, ERROR_MSG
     call PrintString
     jmp $
-
-GraphicsMode:
-	mov ah, 0		; switch to graphics mode
-	mov al, 0x13
-	int 10h
-	ret
 	
-
 
 %include "PrintString.asm"
 %include "ReadFromDisk.asm"
-%include "PrintDecimal.asm"
 %include "AvailableMemory.asm"
 %include "GDT.asm"
 
