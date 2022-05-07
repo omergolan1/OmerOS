@@ -128,6 +128,7 @@ void parseCommand(){
     else if (CheckCMD(kprint, "echo ")){currentTask = "echo";}
     else if (CheckCMD(printUsedMem, "usedmem")){;}
     else if (CheckCMD(clearCMD, "clear")){;}
+    else if (CheckCMD(DarkMode, "dark")){;}
     else if (CheckCMD(calcCMD, "calc")){calc(CommandBuffer);}
     else {kprint("\""); kprint(CommandBuffer); kprint("\" is not a command");}
     kprint("\n");

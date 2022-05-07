@@ -6,15 +6,17 @@
 
 extern const char* currentTask;
 
-static const int numberOfCMDs = 5;
+static const int numberOfCMDs = 6;
 
 extern int CursorPos;
 
-static const char *  const helpList[5] = {                  // find better (dynamic) way
+static const char *  const helpList[6] = {                  // find better (dynamic) way
     "  help: shows command list\n",
     "  echo [text]: prints text\n",
     "  usedmem: shows dynamic memory usage\n",
-    "  clear: clears the screen\n"
+    "  clear: clears the screen\n",
+    "  calc: p=+, m=*, s=- ,d=/ exmple: calc 2p2 = 4\n",
+    "  dark: dark mode"
     
 };
 
@@ -58,6 +60,20 @@ void clearCMD(const char* s){
     if(strLen(s) == 0){
         currentTask = "clear";
         ClearScreen(-1);
+        CursorPos = 0;
+    }
+    else{
+        kprint("Invalid option: \"");
+        if(s[0] == ' ') kprint((const char*)((int)s + 1));
+        else kprint(s);
+        kprint("\"");
+    }
+    
+}
+void DarkMode(const char* s){ 
+    if(strLen(s) == 0){
+        currentTask = "clear";
+        ClearScreen(2);
         CursorPos = 0;
     }
     else{

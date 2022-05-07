@@ -4,4 +4,5 @@ void printUsedMem(const char* s);
 void helpCMD(const char* s);
 void clearCMD(const char* s);
 void calcCMD(const char* s);
+void DarkMode(const char* s);
 #endif
