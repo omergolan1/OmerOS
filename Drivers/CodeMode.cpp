@@ -35,7 +35,6 @@ void EnterCodeMode(){
 	SetCursorPos(0,0);
 	kprint("CODE mode\n");
 	
-	TextCursorPos = CursorPos;
 	SetCursorPosRaw(1920);
 	
 }
