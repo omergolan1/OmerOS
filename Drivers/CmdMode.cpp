@@ -55,7 +55,6 @@ void SetCmdMode(){
 	ClrLine(24);
 	SetCursorPos(0,0);
 	kprint("CMD mode\n");
-	kprint(Fool);
     kprintCol("May 23 2021: CMD mode is being replaced by a more complete shell \nPress F5 to enter shell mode\n", ERROR_COLOR);
 	TextCursorPos = CursorPos;
 	SetCursorPosRaw(1920);
@@ -118,7 +117,6 @@ void ExecCmd(int cmd, char* str){
 		case 5: 
 			ClearScreen(0x0D);
 			SetCursorPosRaw(81);
-			kprint(bdr);
 			kprintCol("          \"Addio, Bocca di Rosa, con te se ne parte la primavera\".              ", 0xe0);
 			
 			

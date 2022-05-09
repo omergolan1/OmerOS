@@ -13,7 +13,4 @@ jmp $
 %include "../intDef/interrupt.asm"
 
 
-section .rodata		    ; read only data
-
-%include "../Kernel/IncBins.asm"	; including binaries
 
