@@ -19,7 +19,6 @@
 
 int curMode;					        // Modes:	1: CMD, 2: code, 0: dummy text, 10: shell
 
-
 extern const unsigned short MemSize;    // Approximate value of extended memory (under 4 GB)
 
 extern "C" void main(){
