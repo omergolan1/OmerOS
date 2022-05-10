@@ -23,7 +23,7 @@ readDisk:
 	
 	mov bx, ax
 
-	jmp AFTER_DISK_READ	; I have no idea why return is not working, I'll figure it out
+	jmp AFTER_DISK_READ	
 	ret
 
 
